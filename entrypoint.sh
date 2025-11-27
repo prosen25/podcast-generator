@@ -1,15 +1,16 @@
 #!/bin/bash
+set -e
 
 echo "========================"
 
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${INPUT_EMAIL}"
-git config --global -add safe.directory /github/workspace
+git config --global --add safe.directory /github/workspace
 
 python3 /usr/bin/feed.py
 
 git add -A
-git commit -m "Update feed"
-git push --set-upstrem origin main
+git commit -m "Update feed" || true
+git push --set-upstream origin main || true
 
 echo "========================"
